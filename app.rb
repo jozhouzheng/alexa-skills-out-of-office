@@ -34,6 +34,22 @@ class CustomHandler < AlexaSkillsRuby::Handler
     logger.info 'GetZodiacHoroscopeIntent processed'
   end
 
+  on_intent("HERE") do
+  		# add a response to Alexa
+      response.set_output_speech_text("I've updated your status to Here ")
+  		# create a card response in the alexa app
+      response.set_simple_card("Out of Office App", "Status is in the office.")
+  		# log the output if needed
+      logger.info 'Here processed'
+  		# send a message to slack
+      update_status "HERE"
+    end
+
+    on_intent("AMAZON.HelpIntent") do
+      response.set_output_speech_text("You can ask me to tell you the current out of office status by saying current status. You can update your stats by saying tell out of office i'll be right back, i've gone home, i'm busy, i'm here or i'll be back in 10 minutes")
+      logger.info 'HelpIntent processed'
+    end
+    
 end
 
 # ----------------------------------------------------------------------
